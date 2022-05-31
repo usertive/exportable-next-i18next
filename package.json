@@ -1,0 +1,25 @@
+{
+  "name": "exportable-next-i18next",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "lib",
+    "examples/*"
+  ],
+  "engines": {
+    "node": ">=16",
+    "yarn": ">=1.22"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "8.16.0",
+    "eslint-config-next": "12.1.6",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.6.2"
+  }
+}
