@@ -1,0 +1,27 @@
+{
+  "name": "example-simple",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "clean": "rimraf .next out",
+    "build": "next build && next export",
+    "start": "serve out",
+    "lint": "eslint --config ./.eslintrc.js --ignore-path ../../.eslintignore --fix \"src/**/*.ts?(x)\"",
+    "format": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --loglevel warn --write \"src/**/*.{ts,tsx,@(c|sa|sc)ss}\""
+  },
+  "dependencies": {
+    "next": "12.1.5",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "serve": "^13.0.2",
+    "@usertive/exportable-next-i18next": "*"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.29",
+    "@types/react": "18.0.8",
+    "@types/react-dom": "18.0.2",
+    "typescript": "4.6.3",
+    "rimraf": "^3.0.2"
+  }
+}

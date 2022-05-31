@@ -1,0 +1,12 @@
+{
+  "head": {
+    "title": "Create Next App",
+    "description": "Erstellt von create next app"
+  },
+  "langSwitchLink": "Gebietsschema wechseln zu <0>{{locale}}</0>",
+  "langEnglish": "Englisch",
+  "langGerman": "Deutsch",
+  "footer": {
+    "poweredBy": "Unterstützt von <0>{{logo}}</0>"
+  }
+}

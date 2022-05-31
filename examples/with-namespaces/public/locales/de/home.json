@@ -1,0 +1,22 @@
+{
+  "title": "Willkommen zu <0>{{framework}}</0>!",
+  "goToSupportPage": "gehen Sie zur <0>Support-Seite</0>",
+  "tiles": {
+    "documentation": {
+      "title": "Dokumentation <0>{{arrow}}</0>",
+      "description": "Find in-depth information about Next.js features and API."
+    },
+    "learn": {
+      "title": "Lernen <0>{{arrow}}</0>",
+      "description": "Learn about Next.js in an interactive course with quizzes!"
+    },
+    "examples": {
+      "title": "Beispiele <0>{{arrow}}</0>",
+      "description": "Discover and deploy boilerplate example Next.js projects."
+    },
+    "deploy": {
+      "title": "Einsetzen <0>{{arrow}}</0>",
+      "description": "Instantly deploy your Next.js site to a public URL with Vercel."
+    }
+  }
+}
