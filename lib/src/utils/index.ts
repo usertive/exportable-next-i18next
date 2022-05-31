@@ -1,0 +1,1 @@
+export {resolvePathName} from './resolvePathName';

@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "module": "CommonJS",
+    "target": "ES6",
+    "moduleResolution": "Node",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "sourceMap": false,
+    "declaration": true,
+    "declarationMap": false,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "types/**/*",
+    "src/**/*",
+    "node_modules/next/types/global.d.ts"
+  ]
+}
