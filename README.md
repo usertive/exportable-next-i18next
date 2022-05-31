@@ -1,0 +1,200 @@
+**Translate your statically exported NextJs apps efficiently.**
+
+## Few words about this library
+
+When using traditional `next build` option Next.js is taking care about routing & language detection.
+There are many usefull libraries that provides the missing functionalities, including translations management,
+like [next-i18next](https://github.com/isaachinman/next-i18next).
+
+Things go really messy if we export our Next.js app (`next export`):
+
+* Next.js no longer handles routing and language detection, as there is no Node.js server anymore.
+* Translations management libraries don't work with exported apps, because they simply don't support it.
+
+To complement this, `exportable-next-i18next` provides the missing functionality:
+
+* Routing (with little effort on the developer side to setup)
+* Language detection (configurable)
+* Back-end translations management (configurable)
+* 🔥 Load required translations **only for specified language and/or namespace**
+
+Because `exportable-next-i18next` uses worldwide known libs under the hood
+(`i18next`, `react-i18next`)
+users of this beautifull library are dealing with ecosystem they know 👨‍🎓 and love ❤️,
+working on a simple facade, pre-configured but fully configurable.
+
+## Setup
+
+### 1. Installation
+
+```shell
+yarn add @usertive/exportable-next-i18next
+```
+
+You need to also have `react` and `next` installed.
+
+### 2. Prepare the translation content
+
+By default, library expects your translations to be organised as such:
+
+```text
+.
+└── public
+    └── locales
+        ├── en.json
+        └── de.json
+```
+
+If you want to structure your translations/namespaces in a custom way, you will need to simply modify i18next's backend
+config (see next step).
+
+### 3. Create config
+
+Create `exportable-next-i18next.config.ts` file in the root directory of the project (or `.js` if not using TypeScript).
+
+> Note: You can name the config file however you want and place it wherever you want;
+> later you will import the config by yourself.
+
+Fill the config file accordingly, following the tips presented below ⬇️.
+
+```ts
+import {Config} from '@usertive/exportable-next-i18next';
+
+export const config: Config = {
+  // Pass those options ⬇️ the same way you would do with a standard Next.js app
+  nextJsOptions: {
+    locales: ['en', 'de'],
+    defaultLocale: 'en'
+  },
+  // Pass whatever option you want to i18next here
+  i18nextOptions: {
+    // Those options are mandatory ⬇️
+    // See https://github.com/i18next/i18next-fs-backend for details
+    backend: {
+      addPath: `./public/locales/{{lng}}.missing.json`,
+      loadPath: `./public/locales/{{lng}}.json`,
+    },
+  }
+};
+```
+
+The presented sample configuration file ⬆️ shows only the necessary configuration options,
+but you can tweak almost all i18next options as you like.
+
+> Remember that you can't use Node.js's specific modules in the config file, because
+> this file is shared between client (browser) and server (node.js).
+> With a small exception for `path` module which has been already polyfilled.
+
+### 4. `<App>` setup
+
+Modify your `_app.jsx/tsx` component
+(or [create new if you don't have it yet](https://nextjs.org/docs/advanced-features/custom-app))
+and wrap your App with `appWithTranslations` Ad-hoc.
+
+The second argument of `appWithTranslations` function is
+your config, imported manually.
+
+```tsx
+import {config as i18nConfig} from '../../exportable-next-i18next.config';
+
+function App({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+
+export default appWithTranslations(App, i18nConfig);
+```
+
+### 5. Setup [static sites generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended) with translation content injection
+
+For now we will simply create one page but this job have to be done for each new page you want to create.
+
+Create the following pages structure:
+
+```text
+ src
+ └── pages
+     ├── [lang]
+     |    └── index.tsx
+     |    
+     └── index.tsx
+
+```
+
+Configure `getStaticPaths`, `getStaticProps` in `pages/[lang]/index.tsx` file:
+
+```tsx
+import {GetStaticPaths, GetStaticPathsContext} from 'next';
+import {GetStaticPropsContext} from 'next/types';
+import {serverSideTranslations} from '@usertive/exportable-next-i18next/dist/server';
+
+import {config as i18nConfig} from '../../../exportable-next-i18next.config';
+
+export const getStaticPaths: GetStaticPaths = function(_context: GetStaticPathsContext) {
+  return {
+    /**
+     * Generate a page for each locale defined in the config file.
+     * It's important to name the param `lang`, it won't work otherwise!
+     */
+    paths: i18nConfig.nextJsOptions.locales.map((locale: string) => ({params: {lang: locale}})),
+    fallback: false
+  };
+};
+
+export const getStaticProps = async (context: GetStaticPropsContext<{lang: string}>) => {
+  // Get current locale (language code) from props generated by `getStaticPaths`.
+  const locale: string = context.params!.lang;
+
+  return {
+    props: {
+      /**
+       * This is an async function that you need to include on your page-level components, via getStaticProps.
+       * This function will take care of injecting translations into your front-end app.
+       * The arguments are as follows:
+       * 1. locale - current locale to inject translations for;
+       * 2. namespaces - array of namespaces required for this page (`null` if you are not using namespaces);
+       * 3. i18nConfig - manually imported config file.
+       * 4. extra options - i.e. default namespace to use for this page
+       */
+      ...(await serverSideTranslations(locale, null, i18nConfig))
+    }
+  };
+};
+
+export default function Main() {...}
+```
+
+Re-export special `<LangRouter>` in `/pages/index.tsx`
+
+```ts
+export {LangRouter as default} from '@usertive/exportable-next-i18next/dist/client';
+```
+
+### 🥳 Done!
+
+Having troubles during setup? Don't worry, go to [/examples/simple](/examples/simple) directory
+and see an example app already configured in exactly the same manner as in this setup guide.
+
+## Nice to know 📘
+
+1. There are **out-of-box examples** created to help you start quickly. Have a look at [/examples](/examples) directory.
+
+
+2. Using **namespaces**? Have a look at [this example](/examples/with-namespaces) to learn how to use namespaces
+   correctly.
+
+
+3. For your convenience this library is reexporting all hooks and components from `react-i18next` but you can use
+   whatever import you like:
+
+```tsx
+// It doesn't matter which one you choose
+import {useTranslation} from '@usertive/exportable-next-i18next/dist/client';
+import {useTranslation} from 'react-i18next';
+```
+
+
+4. You can use all features from `i18next` and `react-i18next`, including `namespaces`, `<Trans>` component etc.
+
+
+5. Resources do not need to be located under `/public` directory, it's up to you.
+   Just remember to change resource paths accordingly in the config file (i18nextOptions.backend.*).
