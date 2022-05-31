@@ -1,26 +1,26 @@
 **Translate your statically exported NextJs apps efficiently.**
 
-## Few words about this library
+## About this library
 
-When using traditional `next build` option Next.js is taking care about routing & language detection.
-There are many usefull libraries that provides the missing functionalities, including translations management,
+When using traditional `next build` option, Next.js takes care of routing & language detection.
+There are many useful libraries that provide the missing functionalities, including translations management,
 like [next-i18next](https://github.com/isaachinman/next-i18next).
 
-Things go really messy if we export our Next.js app (`next export`):
+However, things get really messy when we export our Next.js app (`next export`):
 
 * Next.js no longer handles routing and language detection, as there is no Node.js server anymore.
-* Translations management libraries don't work with exported apps, because they simply don't support it.
+* Translations management libraries don't work with exported apps, because they simply don't support them.
 
-To complement this, `exportable-next-i18next` provides the missing functionality:
+To resolve these problems, `exportable-next-i18next` provides the missing functionality:
 
-* Routing (with little effort on the developer side to setup)
+* Routing (with little effort on the developer's part to setup)
 * Language detection (configurable)
 * Back-end translations management (configurable)
 * 🔥 Load required translations **only for specified language and/or namespace**
 
-Because `exportable-next-i18next` uses worldwide known libs under the hood
-(`i18next`, `react-i18next`)
-users of this beautifull library are dealing with ecosystem they know 👨‍🎓 and love ❤️,
+Because `exportable-next-i18next` is based on well known libraries
+(`i18next`, `react-i18next`),
+users of this beautiful library are dealing with ecosystem they know 👨‍🎓 and love ❤️,
 working on a simple facade, pre-configured but fully configurable.
 
 ## Setup
@@ -31,11 +31,11 @@ working on a simple facade, pre-configured but fully configurable.
 yarn add @usertive/exportable-next-i18next
 ```
 
-You need to also have `react` and `next` installed.
+You need to have `react` and `next` installed.
 
 ### 2. Prepare the translation content
 
-By default, library expects your translations to be organised as such:
+By default, the library expects your translations to be organised as such:
 
 ```text
 .
@@ -45,7 +45,7 @@ By default, library expects your translations to be organised as such:
         └── de.json
 ```
 
-If you want to structure your translations/namespaces in a custom way, you will need to simply modify i18next's backend
+If you want to structure your translations/namespaces in a custom way, you will simply need to modify i18next's backend
 config (see next step).
 
 ### 3. Create config
@@ -82,13 +82,13 @@ The presented sample configuration file ⬆️ shows only the necessary configur
 but you can tweak almost all i18next options as you like.
 
 > Remember that you can't use Node.js's specific modules in the config file, because
-> this file is shared between client (browser) and server (node.js).
+> this file is shared between the client (browser) and the server (node.js).
 > With a small exception for `path` module which has been already polyfilled.
 
 ### 4. `<App>` setup
 
 Modify your `_app.jsx/tsx` component
-(or [create new if you don't have it yet](https://nextjs.org/docs/advanced-features/custom-app))
+(or [create a new one if you don't have it yet](https://nextjs.org/docs/advanced-features/custom-app))
 and wrap your App with `appWithTranslations` Ad-hoc.
 
 The second argument of `appWithTranslations` function is
@@ -106,7 +106,7 @@ export default appWithTranslations(App, i18nConfig);
 
 ### 5. Setup [static sites generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended) with translation content injection
 
-For now we will simply create one page but this job have to be done for each new page you want to create.
+For now we will simply create one page but this job has to be done for each new page you want to create.
 
 Create the following pages structure:
 
@@ -176,7 +176,8 @@ and see an example app already configured in exactly the same manner as in this 
 
 ## Nice to know 📘
 
-1. There are **out-of-box examples** created to help you start quickly. Have a look at [/examples](/examples) directory.
+1. There are **out-of-the-box examples** created to help you start quickly. Have a look at [/examples](/examples)
+   directory.
 
 
 2. Using **namespaces**? Have a look at [this example](/examples/with-namespaces) to learn how to use namespaces
@@ -191,7 +192,6 @@ and see an example app already configured in exactly the same manner as in this 
 import {useTranslation} from '@usertive/exportable-next-i18next/dist/client';
 import {useTranslation} from 'react-i18next';
 ```
-
 
 4. You can use all features from `i18next` and `react-i18next`, including `namespaces`, `<Trans>` component etc.
 
