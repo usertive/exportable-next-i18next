@@ -1,7 +1,7 @@
 {
   "name": "@usertive/exportable-next-i18next",
   "description": "Translate your statically exported NextJs apps efficiently.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Usertive",
   "license": "MIT",
   "engines": {
