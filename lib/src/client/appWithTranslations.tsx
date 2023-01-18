@@ -14,10 +14,10 @@ export const appWithTranslations = <Props extends NextAppProps = NextAppProps>(
 ) => {
   const AppWithTranslations = (props: Props) => {
     const pageProps = props.pageProps as I18nSerializedProps;
-    const serializedI18NextProps: I18nSerializedProps['_nextI18Next'] = pageProps._nextI18Next;
-    const locale: string | null = serializedI18NextProps?.initialLocale ?? null;
+    const serializedI18NextProps: I18nSerializedProps['_nextI18Next'] | undefined = pageProps._nextI18Next;
+    const locale: string | undefined = serializedI18NextProps?.initialLocale;
 
-    if (providedConfig == undefined) {
+    if(providedConfig == undefined) {
       throw new Error(
         'AD-HOC `appWithTranslations` requires `config` argument to be a valid exportable-next-i18next config.'
       );
@@ -30,7 +30,7 @@ export const appWithTranslations = <Props extends NextAppProps = NextAppProps>(
     const options: ServerSideTranslationsOptions | undefined = serializedI18NextProps?.options;
 
     return (
-      <I18nextProvider i18n={i18n} defaultNS={options?.defaultNS}>
+      <I18nextProvider i18n={i18n} defaultNS={options?.defaultNS ?? undefined}>
         <WrappedComponent key={locale} {...props} />
       </I18nextProvider>
     );
