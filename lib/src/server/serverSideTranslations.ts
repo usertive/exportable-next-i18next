@@ -4,10 +4,11 @@ import {i18n as I18NextInstance, Resource} from 'i18next';
 import {I18nSerializedProps, ServerSideTranslationsOptions} from '../types';
 import {globalInstance} from '../client/createBrowserClient';
 import deepMerge from 'ts-deepmerge';
+import {resolveDefaultNamespace} from '../utils/resolveDefaultNamespace';
 
 export const serverSideTranslations = async (
   initialLocale: string,
-  namespacesRequired: string[] | undefined | null,
+  requestedNamespaces: string[] | undefined | null,
   providedConfig: unknown,
   options?: ServerSideTranslationsOptions
 ): Promise<Required<I18nSerializedProps>> => {
@@ -24,8 +25,8 @@ export const serverSideTranslations = async (
 
   const initialI18nStore: Resource = {[initialLocale]: {}};
 
-  if (namespacesRequired != null) {
-    namespacesRequired.forEach((ns: string) => {
+  if (requestedNamespaces != null) {
+    requestedNamespaces.forEach((ns: string) => {
       for (const locale in initialI18nStore) {
         initialI18nStore[locale][ns] = (i18nInstance.services.resourceStore.data[locale] || {})[ns] || {};
       }
@@ -36,7 +37,7 @@ export const serverSideTranslations = async (
     }
   }
 
-  const defaultOptions: ServerSideTranslationsOptions = {defaultNS: i18nInstance.options.defaultNS};
+  const defaultOptions: ServerSideTranslationsOptions = {defaultNS: resolveDefaultNamespace(i18nInstance)};
   const finalOptions = deepMerge(defaultOptions, options ?? {});
 
   return {

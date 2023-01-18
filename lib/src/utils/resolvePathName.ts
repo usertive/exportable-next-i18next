@@ -7,12 +7,12 @@ export function resolvePathName(pathName: string, queryParams: ParsedUrlQuery) {
       ? (queryParams[queryParam] as string[]).join('')
       : (queryParams[queryParam] as string);
     const newPathName = pathName.replaceAll(`[${queryParam}]`, queryParamValue);
-    if(newPathName !== pathName) {
-        pathName = newPathName;
+    if (newPathName !== pathName) {
+      pathName = newPathName;
     } else {
-        const char = amountOfParameters > 0 ? "&" : "?";
-        pathName = `${pathName}${char}${queryParam}=${queryParamValue}`
-        amountOfParameters++;
+      const char = amountOfParameters > 0 ? '&' : '?';
+      pathName = `${pathName}${char}${queryParam}=${queryParamValue}`;
+      amountOfParameters++;
     }
 
     pathName = pathName.replaceAll(`[${queryParam}]`, queryParamValue);

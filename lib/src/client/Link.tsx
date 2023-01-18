@@ -1,7 +1,9 @@
-import {memo, PropsWithChildren, useMemo} from 'react';
+import {ComponentProps, memo, PropsWithChildren, useMemo} from 'react';
 import {NextRouter, useRouter} from 'next/router';
-import {LinkProps as NextLinkProps, default as NextLink} from 'next/link';
+import {default as NextLink} from 'next/link';
 import {useTranslation} from 'react-i18next';
+
+type NextLinkProps = ComponentProps<typeof NextLink>;
 
 export type LinkProps = PropsWithChildren<Omit<NextLinkProps, 'href'> & Partial<Pick<NextLinkProps, 'href'>>>;
 
