@@ -70,14 +70,12 @@ export default function Home() {
           />
         </h1>
 
-        <Link locale={nextLocale}>
-          <a className={styles.link}>
-            <Trans
-              i18nKey={'main.langSwitchLink'}
-              values={{locale: nextLocaleLabel}}
-              components={[<code key={0} className={styles.code} />]}
-            />
-          </a>
+        <Link locale={nextLocale} className={styles.link}>
+          <Trans
+            i18nKey={'main.langSwitchLink'}
+            values={{locale: nextLocaleLabel}}
+            components={[<code key={0} className={styles.code} />]}
+          />
         </Link>
 
         <div className={styles.grid}>

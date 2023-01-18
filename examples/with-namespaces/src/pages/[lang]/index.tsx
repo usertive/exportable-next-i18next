@@ -62,20 +62,16 @@ export default function Home() {
         </h1>
 
         <div className={styles.linksBox}>
-          <Link locale={nextLocale}>
-            <a className={styles.link}>
-              <Trans
-                i18nKey={'common:langSwitchLink'}
-                values={{locale: nextLocaleLabel}}
-                components={[<code key={0} className={styles.code} />]}
-              />
-            </a>
+          <Link locale={nextLocale} className={styles.link}>
+            <Trans
+              i18nKey={'common:langSwitchLink'}
+              values={{locale: nextLocaleLabel}}
+              components={[<code key={0} className={styles.code} />]}
+            />
           </Link>
 
-          <Link href={'/support'}>
-            <a className={styles.link}>
-              <Trans i18nKey={'goToSupportPage'} components={[<code key={0} className={styles.code} />]} />
-            </a>
+          <Link href={'/support'} className={styles.link}>
+            <Trans i18nKey={'goToSupportPage'} components={[<code key={0} className={styles.code} />]} />
           </Link>
         </div>
 

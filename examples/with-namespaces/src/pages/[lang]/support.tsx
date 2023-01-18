@@ -58,20 +58,16 @@ export default function Support() {
         </h1>
 
         <div className={styles.linksBox}>
-          <Link locale={nextLocale}>
-            <a className={styles.link}>
-              <Trans
-                i18nKey={'common:langSwitchLink'}
-                values={{locale: nextLocaleLabel}}
-                components={[<code key={0} className={styles.code} />]}
-              />
-            </a>
+          <Link locale={nextLocale} className={styles.link}>
+            <Trans
+              i18nKey={'common:langSwitchLink'}
+              values={{locale: nextLocaleLabel}}
+              components={[<code key={0} className={styles.code} />]}
+            />
           </Link>
 
-          <Link href={'/'}>
-            <a className={styles.link}>
-              <Trans i18nKey={'goToHomePage'} components={[<code key={0} className={styles.code} />]} />
-            </a>
+          <Link href={'/'} className={styles.link}>
+            <Trans i18nKey={'goToHomePage'} components={[<code key={0} className={styles.code} />]} />
           </Link>
         </div>
       </main>
