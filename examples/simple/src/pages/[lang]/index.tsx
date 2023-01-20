@@ -2,8 +2,8 @@ import type {GetStaticPathsContext, GetStaticPropsContext} from 'next';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
 import {config as i18nConfig} from '../../../exportable-next-i18next.config';
-import {serverSideTranslations} from '@usertive/exportable-next-i18next/dist/server';
-import {Link, Trans, useTranslation} from '@usertive/exportable-next-i18next/dist/client';
+import {serverSideTranslations} from '@usertive/exportable-next-i18next/server';
+import {Link, Trans, useTranslation} from '@usertive/exportable-next-i18next/client';
 
 export function getStaticPaths(_context: GetStaticPathsContext) {
   return {

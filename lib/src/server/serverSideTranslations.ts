@@ -3,18 +3,18 @@ import {getServerClient} from './getServerClient';
 import {i18n as I18NextInstance, Resource} from 'i18next';
 import {I18nSerializedProps, ServerSideTranslationsOptions} from '../types';
 import {globalInstance} from '../client/createBrowserClient';
-import deepMerge from 'ts-deepmerge';
-import {resolveDefaultNamespace} from '../utils/resolveDefaultNamespace';
+import deepMerge from 'deepmerge';
+import {resolveDefaultNamespace} from '../utils';
 
 export const serverSideTranslations = async (
   initialLocale: string,
   requestedNamespaces: string[] | undefined | null,
-  providedConfig: unknown,
+  providedConfig: Partial<Config>,
   options?: ServerSideTranslationsOptions
 ): Promise<Required<I18nSerializedProps>> => {
   //TODO: function arguments validation
 
-  const config: Config = mergeConfig(providedConfig as Config);
+  const config: Config = mergeConfig(providedConfig);
 
   config.i18nextOptions.lng = initialLocale;
 

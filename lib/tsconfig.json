@@ -1,29 +1,25 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "module": "CommonJS",
-    "target": "ES6",
-    "moduleResolution": "Node",
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "NodeNext",
     "lib": [
       "esnext",
       "dom"
     ],
-    "outDir": "dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
     "strict": true,
-    "skipLibCheck": true,
     "importHelpers": true,
-    "sourceMap": false,
-    "declaration": true,
-    "declarationMap": false,
-    "resolveJsonModule": true
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
   },
   "include": [
-    "types/**/*",
-    "src/**/*",
+    "**/*.ts",
+    "src/**/*.tsx",
     "node_modules/next/types/global.d.ts"
   ]
 }

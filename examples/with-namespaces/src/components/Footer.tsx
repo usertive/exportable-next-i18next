@@ -1,6 +1,6 @@
 import {memo} from 'react';
 import styles from '../styles/Home.module.css';
-import {Trans} from '@usertive/exportable-next-i18next/dist/client';
+import {Trans} from '@usertive/exportable-next-i18next/client';
 
 function Logo() {
   return (

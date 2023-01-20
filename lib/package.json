@@ -1,44 +1,80 @@
 {
   "name": "@usertive/exportable-next-i18next",
   "description": "Translate your statically exported NextJs apps efficiently.",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "author": "Usertive",
   "license": "MIT",
+  "repository": "git://github.com/usertive/exportable-next-i18next.git",
   "engines": {
     "node": ">=12",
     "yarn": ">=1.22"
   },
-  "repository": "git://github.com/usertive/exportable-next-i18next.git",
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "tsc --project ./tsconfig.json",
+    "build": "yarn clean && rollup -c rollup.config.mjs",
     "ts-check": "tsc --project tsconfig.json --noEmit",
-    "lint": "eslint --config ./.eslintrc.js --ignore-path ../.eslintignore --fix \"src/**/*.ts\"",
+    "lint": "eslint --config .eslintrc.js --ignore-path ../.eslintignore --fix \\\"src/**/*.ts\\\"",
     "format": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --loglevel warn --write \"src/**/*.ts\""
   },
+  "files": [
+    "client",
+    "server",
+    "dist"
+  ],
+  "type": "commonjs",
+  "exports": {
+    "./client": {
+      "types": {
+        "require": "./dist/cjs/client/index.d.ts",
+        "import": "./dist/esm/client/index.d.ts"
+      },
+      "require": "./dist/cjs/client/index.js",
+      "import": "./dist/esm/client/index.js"
+    },
+    "./server": {
+      "types": {
+        "require": "./dist/cjs/server/index.d.ts",
+        "import": "./dist/esm/server/index.d.ts"
+      },
+      "require": "./dist/cjs/server/index.js",
+      "import": "./dist/esm/server/index.js"
+    },
+    "./utils": {
+      "types": {
+        "require": "./dist/cjs/utils/index.d.ts",
+        "import": "./dist/esm/utils/index.d.ts"
+      },
+      "require": "./dist/cjs/utils/index.js",
+      "import": "./dist/esm/utils/index.js"
+    }
+  },
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "hoist-non-react-statics": "^3.3.2",
     "i18next": "^22.4.9",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-fs-backend": "^2.1.1",
     "path-browserify": "^1.0.1",
-    "react-i18next": "^12.1.4",
-    "ts-deepmerge": "^5.0.0"
+    "react-i18next": "^12.1.4"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/deepmerge": "^2.2.0",
     "@types/hoist-non-react-statics": "^3.3.1",
-    "@types/i18next-fs-backend": "^1.1.2",
     "@types/node": "^16.18.11",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "~18.0.26",
     "@types/react-dom": "~18.0.10",
     "rimraf": "^4.1.1",
-    "typescript": "4.9.4"
+    "rollup": "^3.10.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^5.1.1",
+    "rollup-plugin-generate-package-json": "^3.2.0",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
   },
   "peerDependencies": {
     "next": ">=13.0.0",
