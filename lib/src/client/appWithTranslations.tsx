@@ -1,4 +1,4 @@
-import {AppProps as NextAppProps} from 'next/app';
+import {AppProps as NextAppProps} from 'next/app.js';
 import React, {ComponentType} from 'react';
 import {i18n as I18NextClient} from 'i18next';
 import {I18nSerializedProps, ServerSideTranslationsOptions} from '../types';
@@ -6,7 +6,7 @@ import {Config, mergeConfig} from '../config';
 import {useI18nBrowserInstance} from './useI18nBrowserInstance';
 import {I18nextProvider} from 'react-i18next';
 import hoistNonReactStatics from 'hoist-non-react-statics';
-import {getDisplayName} from 'next/dist/shared/lib/utils';
+import {getDisplayName} from 'next/dist/shared/lib/utils.js';
 
 export const appWithTranslations = <Props extends NextAppProps = NextAppProps>(
   WrappedComponent: ComponentType<Props>,

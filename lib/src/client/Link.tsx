@@ -1,6 +1,6 @@
 import {ComponentProps, memo, PropsWithChildren, useMemo} from 'react';
-import {NextRouter, useRouter} from 'next/router';
-import {default as NextLink} from 'next/link';
+import {NextRouter, useRouter} from 'next/router.js';
+import {default as NextLink} from 'next/link.js';
 import {useTranslation} from 'react-i18next';
 
 type NextLinkProps = ComponentProps<typeof NextLink>;
