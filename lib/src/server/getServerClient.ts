@@ -1,5 +1,7 @@
 import {Config} from '../config';
 import i18n, {i18n as I18NextClient} from 'i18next';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import i18nextFSBackend from 'i18next-fs-backend';
 
 let globalInstance: I18NextClient | undefined;

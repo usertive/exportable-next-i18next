@@ -10,7 +10,7 @@ import {getDisplayName} from 'next/dist/shared/lib/utils';
 
 export const appWithTranslations = <Props extends NextAppProps = NextAppProps>(
   WrappedComponent: ComponentType<Props>,
-  providedConfig: unknown
+  providedConfig: Partial<Config>
 ) => {
   const AppWithTranslations = (props: Props) => {
     const pageProps = props.pageProps as I18nSerializedProps;
@@ -25,7 +25,7 @@ export const appWithTranslations = <Props extends NextAppProps = NextAppProps>(
 
     const config: Config = mergeConfig(providedConfig as Config);
 
-    const i18n: I18NextClient | null = useI18nBrowserInstance(serializedI18NextProps, config as Config);
+    const i18n: I18NextClient | null = useI18nBrowserInstance(serializedI18NextProps, config);
 
     const options: ServerSideTranslationsOptions | undefined = serializedI18NextProps?.options;
 

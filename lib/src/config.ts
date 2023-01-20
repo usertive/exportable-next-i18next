@@ -1,5 +1,6 @@
 import {InitOptions} from 'i18next';
-import deepMerge from 'ts-deepmerge';
+import deepMerge from 'deepmerge';
+import {arrayMergeStrategy} from './utils/arrayMergeStrategy';
 
 export interface NextJsI18NOptions {
   locales: string[];
@@ -41,47 +42,11 @@ export const defaultConfig: Config = {
 
 export function mergeConfig(userConfig: Partial<Config>): Config {
   //TODO: config validation
-  const config = deepMerge.withOptions({mergeArrays: false}, defaultConfig, userConfig) as Config;
+
+  const config = deepMerge(defaultConfig, userConfig, {arrayMerge: arrayMergeStrategy.OVERRIDE}) as Config;
 
   config.i18nextOptions.supportedLngs = config.nextJsOptions.locales;
   config.i18nextOptions.fallbackLng = config.nextJsOptions.defaultLocale;
 
   return config;
 }
-
-/**
- * @throws Error
- */
-
-/*export async function loadConfig() {
-  const moduleName = 'exportable-next-i18next';
-
-  const explorer = cosmiconfig(moduleName, {
-    searchPlaces: [
-      `${moduleName}.config.js`,
-      `${moduleName}.config.cjs`,
-      `${moduleName}.config.mjs`,
-      `${moduleName}.config.ts`,
-      `${moduleName}.config.cts`,
-      `${moduleName}.config.mts`,
-    ],
-    loaders: {
-      '.ts': TypeScriptLoader(),
-      '.cts': TypeScriptLoader(),
-      '.mts': TypeScriptLoader(),
-    },
-  });
-
-  let result: CosmiconfigResult | null;
-  try {
-    result = await explorer.search();
-  } catch (e: unknown) {
-    throw new Error('Cosmiconfig has refused to read the config file. ' + String(e));
-  }
-
-  if (result == null) throw new Error('Cosmiconfig did not found any config specified by `searchPlaces` option.');
-
-  //TODO: config validation
-
-  return deepMerge(defaultConfig, result.config) as Config;
-}*/
