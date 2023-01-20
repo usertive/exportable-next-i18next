@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import type {AppProps} from 'next/app';
-import {appWithTranslations, useTranslation} from '@usertive/exportable-next-i18next/dist/client';
+import {appWithTranslations, useTranslation} from '@usertive/exportable-next-i18next/client';
 import {config as i18nConfig} from '../../exportable-next-i18next.config';
 import Head from 'next/head';
 
